@@ -1,5 +1,5 @@
 from pathlib import Path
-
+from datetime import timedelta
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "0*iw!f0d6@0cwa)a2od)0v_+tuo+xgswjxff1m%lq=fqnptgr)"
@@ -77,14 +77,22 @@ USE_L10N = True
 USE_TZ = True
 STATIC_URL = "/static/"
 
-AUTH_USER_MODEL = 'tikko.User'
+AUTH_USER_MODEL = "tikko.User"
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
 }
 
 SIMPLE_JWT = {
-   'AUTH_HEADER_TYPES': ('JWT',),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+    "AUTH_HEADER_TYPES": ("JWT",),
+}
+
+DJOSER = {
+    "HIDE_USERS": False,
+    "PERMISSIONS": {
+        "user_list": ["rest_framework.permissions.AllowAny"],
+    },
 }
